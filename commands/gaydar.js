@@ -28,6 +28,7 @@ async function imagesDisponibles() {
 /**
  * Score stable pour un membre sur une journée donnée : relancer la commande
  * renvoie le même résultat, ce qui évite le spam pour "retenter sa chance".
+ * Le résultat ne descend jamais sous 99 % et se lit au millième près.
  */
 function score(userId) {
   const { jour, mois, annee } = aujourdhui();
@@ -35,7 +36,16 @@ function score(userId) {
   for (const caractere of `${userId}-${annee}-${mois}-${jour}`) {
     hash = (hash * 31 + caractere.codePointAt(0)) >>> 0;
   }
-  return hash % 101;
+  // 1001 valeurs équiprobables réparties de 99,000 à 100,000.
+  return 99 + (hash % 1001) / 1000;
+}
+
+/** Trois décimales, virgule française. */
+function formaterScore(valeur) {
+  return valeur.toLocaleString('fr-FR', {
+    minimumFractionDigits: 3,
+    maximumFractionDigits: 3,
+  });
 }
 
 function jauge(valeur) {
@@ -71,7 +81,7 @@ export default {
     const valeur = score(cible.id);
 
     return interaction.reply({
-      content: `📡 Scan de ${cible} terminé…\n${jauge(valeur)} **${valeur} %**`,
+      content: `📡 Scan de ${cible} terminé…\n${jauge(valeur)} **${formaterScore(valeur)} %**`,
       files: [new AttachmentBuilder(image)],
       allowedMentions: { users: [] },
     });
