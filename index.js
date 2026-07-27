@@ -118,4 +118,21 @@ for (const signal of ['SIGINT', 'SIGTERM']) {
   });
 }
 
-client.login(process.env.DISCORD_TOKEN);
+// Sans ce filet, un token invalide produit une « unhandled rejection » illisible
+// et le process redémarre en boucle sans qu'on sache pourquoi.
+client.login(process.env.DISCORD_TOKEN).catch((error) => {
+  if (error.code === 'TokenInvalid') {
+    console.error(
+      'Connexion refusée : le token est invalide ou a été régénéré. ' +
+        'Mets à jour DISCORD_TOKEN (fly secrets set DISCORD_TOKEN=…, ou le fichier .env en local).',
+    );
+  } else if (error.code === 'DisallowedIntents') {
+    console.error(
+      'Connexion refusée : un intent privilégié est désactivé. Active SERVER MEMBERS INTENT ' +
+        'dans le portail développeur, onglet Bot.',
+    );
+  } else {
+    console.error('Connexion à Discord impossible :', error);
+  }
+  process.exit(1);
+});
