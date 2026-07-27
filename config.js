@@ -6,7 +6,7 @@ export const config = {
   anniversaires: {
     // Nom OU identifiant du rôle donné le jour J. Le rôle doit exister et être
     // placé SOUS le rôle du bot dans la hiérarchie du serveur.
-    role: 'Anniversaire',
+    role: 'Joyeux anniversaire',
     // Nom OU identifiant du salon d'annonce.
     salonAnnonce: 'general',
     // Heure locale (0-23) du passage quotidien.

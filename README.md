@@ -51,7 +51,7 @@ gérer les événements.
 
 ### 4. Côté serveur Discord
 
-- Crée un rôle nommé **Anniversaire** (le nom est réglable dans `config.js`).
+- Crée un rôle nommé **Joyeux anniversaire** (le nom est réglable dans `config.js`).
 - Dans *Paramètres du serveur → Rôles*, place le rôle du bot **au-dessus** de
   celui-ci, sinon Discord refuse l'attribution.
 - Vérifie qu'un salon **general** existe (nom réglable aussi).
