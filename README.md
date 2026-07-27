@@ -1,7 +1,7 @@
 # Empire — bot Discord
 
 Musique YouTube, anniversaires (rôle + annonce + événements), météo
-hebdomadaire et `/gaydar`.
+quotidienne et hebdomadaire, et `/gaydar`.
 
 ## Commandes
 
@@ -95,9 +95,9 @@ Les dates sont stockées dans `data/anniversaires.json`, exclu de git.
 Les données viennent d'[Open-Meteo](https://open-meteo.com) : gratuit, sans clé
 API ni inscription, donc rien à ajouter dans `.env`.
 
-Chaque lundi à 8 h, le bot publie les prévisions de la semaine dans le salon
-d'annonce. Ville, salon, jour et heure se règlent dans `config.js` ; mets
-`annonceHebdo: false` pour ne garder que la commande `/meteo`.
+Chaque jour à 8 h, le bot publie la météo du jour pour les villes configurées
+(Caen, Paris, Toulouse, Saint-Brieuc, Pouxeux), et chaque lundi à 8 h les
+prévisions de la semaine. Villes, salon, jours et heures se règlent dans `config.js`.
 
 ## Hébergement
 
@@ -127,7 +127,7 @@ deploy-commands.js     enregistrement des commandes auprès de Discord
 commands/              une commande par fichier, chargées automatiquement
 lib/musique.js         file d'attente, connexion vocale, streaming yt-dlp
 lib/anniversaires.js   calcul des dates, rôles, annonces, événements
-lib/meteo.js           géocodage, prévisions Open-Meteo, annonce hebdomadaire
+lib/meteo.js           géocodage, prévisions Open-Meteo, annonces planifiées
 lib/salon.js           résolution d'un salon par nom ou identifiant
 lib/store.js           persistance JSON
 lib/chargeur.js        découverte des commandes

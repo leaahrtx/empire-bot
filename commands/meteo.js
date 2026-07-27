@@ -12,7 +12,7 @@ export default {
     .addStringOption((option) =>
       option
         .setName('ville')
-        .setDescription(`Ville à consulter (par défaut : ${config.meteo.ville})`),
+        .setDescription(`Ville à consulter (par défaut : ${config.meteo.villes[0]})`),
     )
     .addIntegerOption((option) =>
       option
@@ -23,7 +23,7 @@ export default {
     ),
 
   async execute(interaction) {
-    const ville = interaction.options.getString('ville') ?? config.meteo.ville;
+    const ville = interaction.options.getString('ville') ?? config.meteo.villes[0];
     const jours = interaction.options.getInteger('jours') ?? 7;
 
     await interaction.deferReply();

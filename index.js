@@ -5,7 +5,7 @@ import { config } from './config.js';
 import { verifierAnniversaires } from './lib/anniversaires.js';
 import { chargerCommandes } from './lib/chargeur.js';
 import { enregistrerCommandes } from './lib/deploiement.js';
-import { annoncerMeteo } from './lib/meteo.js';
+import { annoncerMeteoJour, annoncerMeteoSemaine } from './lib/meteo.js';
 import { detruireSession } from './lib/musique.js';
 
 if (!process.env.DISCORD_TOKEN) {
@@ -64,11 +64,26 @@ client.once('clientReady', async (bot) => {
     `Anniversaires vérifiés chaque jour à ${config.anniversaires.heureVerification}h (${config.timezone}).`,
   );
 
+  const villes = config.meteo.villes.join(', ');
+
+  if (config.meteo.annonceQuotidienne) {
+    cron.schedule(
+      `0 ${config.meteo.heureQuotidienne} * * *`,
+      () => {
+        annoncerMeteoJour(client).catch((e) => console.error('[meteo] Annonce du jour :', e));
+      },
+      { timezone: config.timezone },
+    );
+    console.log(`Météo du jour annoncée chaque jour à ${config.meteo.heureQuotidienne}h : ${villes}.`);
+  }
+
   if (config.meteo.annonceHebdo) {
     cron.schedule(
-      `0 ${config.meteo.heure} * * ${config.meteo.jourSemaine}`,
+      `0 ${config.meteo.heureHebdo} * * ${config.meteo.jourSemaine}`,
       () => {
-        annoncerMeteo(client).catch((e) => console.error('[meteo] Annonce hebdomadaire :', e));
+        annoncerMeteoSemaine(client).catch((e) =>
+          console.error('[meteo] Annonce hebdomadaire :', e),
+        );
       },
       { timezone: config.timezone },
     );
@@ -76,7 +91,7 @@ client.once('clientReady', async (bot) => {
     const jour = new Intl.DateTimeFormat('fr-FR', { weekday: 'long', timeZone: 'UTC' }).format(
       new Date(Date.UTC(2024, 0, 7 + config.meteo.jourSemaine)), // 7 janvier 2024 = dimanche
     );
-    console.log(`Météo de la semaine annoncée chaque ${jour} à ${config.meteo.heure}h.`);
+    console.log(`Météo de la semaine annoncée chaque ${jour} à ${config.meteo.heureHebdo}h.`);
   }
 });
 

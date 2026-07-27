@@ -19,16 +19,20 @@ export const config = {
   },
 
   meteo: {
-    // Ville utilisée par défaut (commande et annonce hebdomadaire).
-    ville: 'Paris',
-    // Nom OU identifiant du salon où poster l'annonce de la semaine.
+    // Villes suivies par les annonces automatiques. La première sert aussi de
+    // valeur par défaut à la commande /meteo.
+    villes: ['Caen', 'Paris', 'Toulouse', 'Saint-Brieuc', 'Pouxeux'],
+    // Nom OU identifiant du salon où poster les annonces.
     salonAnnonce: 'general',
-    // Annonce automatique chaque semaine. Passe à false pour ne garder que /meteo.
+
+    // Météo du jour, tous les jours.
+    annonceQuotidienne: true,
+    heureQuotidienne: 8,
+
+    // Météo de la semaine, une fois par semaine.
     annonceHebdo: true,
-    // 0 = dimanche, 1 = lundi … 6 = samedi.
-    jourSemaine: 1,
-    // Heure locale (0-23) de l'annonce.
-    heure: 8,
+    jourSemaine: 1, // 0 = dimanche, 1 = lundi … 6 = samedi
+    heureHebdo: 8,
   },
 
   gaydar: {
@@ -38,8 +42,8 @@ export const config = {
     // Pour récupérer un identifiant : active Paramètres > Avancés > Mode
     // développeur, puis clic droit sur le membre > « Copier l'identifiant ».
     toujoursZero: [
-      // '123456789012345678',
-      // '987654321098765432',
+      '304941638176735232',
+      '346291372522995724',
     ],
   },
 
