@@ -28,9 +28,12 @@ async function imagesDisponibles() {
 /**
  * Score stable pour un membre sur une journée donnée : relancer la commande
  * renvoie le même résultat, ce qui évite le spam pour "retenter sa chance".
- * Le résultat ne descend jamais sous 99 % et se lit au millième près.
+ * Le résultat ne descend jamais sous 99 %, sauf pour les membres listés dans
+ * config.gaydar.toujoursZero, et se lit au millième près.
  */
 function score(userId) {
+  if (config.gaydar.toujoursZero.includes(userId)) return 0;
+
   const { jour, mois, annee } = aujourdhui();
   let hash = 0;
   for (const caractere of `${userId}-${annee}-${mois}-${jour}`) {

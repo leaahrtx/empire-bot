@@ -34,6 +34,13 @@ export const config = {
   gaydar: {
     // Les images sont piochées au hasard dans ce dossier (png, jpg, gif, webp).
     dossierImages: 'assets/gaydar',
+    // Membres dont le score est forcé à 0 %, quoi qu'il arrive.
+    // Pour récupérer un identifiant : active Paramètres > Avancés > Mode
+    // développeur, puis clic droit sur le membre > « Copier l'identifiant ».
+    toujoursZero: [
+      // '123456789012345678',
+      // '987654321098765432',
+    ],
   },
 
   musique: {
