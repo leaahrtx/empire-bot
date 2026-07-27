@@ -99,6 +99,16 @@ Chaque lundi à 8 h, le bot publie les prévisions de la semaine dans le salon
 d'annonce. Ville, salon, jour et heure se règlent dans `config.js` ; mets
 `annonceHebdo: false` pour ne garder que la commande `/meteo`.
 
+## Hébergement
+
+Le bot doit tourner en permanence pour que les annonces planifiées partent.
+Voir [DEPLOIEMENT.md](DEPLOIEMENT.md) pour la mise en ligne sur Fly.io
+(`Dockerfile` et `fly.toml` sont déjà prêts).
+
+Variable facultative : `DEPLOY_AU_DEMARRAGE=1` enregistre les commandes auprès
+de Discord à chaque démarrage, ce qui évite d'avoir à lancer `npm run deploy`
+là où l'on n'a pas d'accès en ligne de commande.
+
 ## Maintenance
 
 YouTube casse régulièrement les anciennes versions de yt-dlp. Si `/play` ne

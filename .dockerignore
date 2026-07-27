@@ -1,0 +1,19 @@
+# Reconstruits ou téléchargés pendant le build.
+node_modules/
+bin/
+
+# Persistant : vit sur le volume Fly, jamais dans l'image.
+data/
+
+# Secrets : le token passe par « fly secrets set », jamais par l'image.
+.env
+
+.git/
+.gitignore
+*.log
+.DS_Store
+README.md
+DEPLOIEMENT.md
+
+# assets/ n'est volontairement pas ignoré : les images de /gaydar sont exclues
+# du dépôt Git mais doivent bien partir dans l'image.

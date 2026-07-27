@@ -2,10 +2,20 @@
 # Installe ou met à jour le binaire yt-dlp autonome dans bin/.
 # Ces versions embarquent leur propre Python : rien à installer sur le système.
 # À relancer de temps en temps, YouTube casse régulièrement les vieilles versions.
+#
+# Usage : installer-ytdlp.sh [--si-absent]
+#   --si-absent : ne fait rien si un binaire fonctionnel est déjà là.
+#                 Utilisé par le postinstall de npm, qui se relance à chaque
+#                 démarrage chez les hébergeurs à panel.
 set -e
 
 racine=$(cd "$(dirname "$0")/.." && pwd)
 mkdir -p "$racine/bin"
+
+if [ "$1" = "--si-absent" ] && "$racine/bin/yt-dlp" --version >/dev/null 2>&1; then
+  echo "yt-dlp déjà présent ($("$racine/bin/yt-dlp" --version)), téléchargement ignoré."
+  exit 0
+fi
 
 # Le binaire diffère selon la machine : indispensable pour que le projet
 # fonctionne aussi bien en local (macOS) que sur un hébergeur (Linux).

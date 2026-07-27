@@ -1,0 +1,26 @@
+app = "empire-bot"
+primary_region = "cdg"
+
+[build]
+
+[env]
+  TZ = "Europe/Paris"
+  # Enregistre les commandes auprès de Discord à chaque démarrage : évite
+  # d'avoir à lancer « npm run deploy » à la main après un déploiement.
+  DEPLOY_AU_DEMARRAGE = "1"
+
+# Les anniversaires sont stockés dans un fichier JSON : sans ce volume, ils
+# seraient perdus à chaque redéploiement.
+[[mounts]]
+  source = "empire_data"
+  destination = "/app/data"
+
+[[vm]]
+  size = "shared-cpu-1x"
+  # 256 Mo suffisent au bot seul, mais ffmpeg transcode en parallèle pendant la
+  # lecture : 512 Mo évitent que la machine se fasse tuer pour dépassement.
+  memory = "512mb"
+  cpus = 1
+
+# Aucune section [http_service] : le bot n'expose aucun port et ne doit jamais
+# être arrêté pour inactivité, sinon les annonces planifiées ne partiraient pas.
