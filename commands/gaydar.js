@@ -28,8 +28,9 @@ async function imagesDisponibles() {
 /**
  * Score stable pour un membre sur une journée donnée : relancer la commande
  * renvoie le même résultat, ce qui évite le spam pour "retenter sa chance".
- * Le résultat ne descend jamais sous 99 %, sauf pour les membres listés dans
- * config.gaydar.toujoursZero, et se lit au millième près.
+ * Le résultat couvre 0 à 100 % au millième près, avec un net penchant pour le
+ * haut de l'échelle. Les membres listés dans config.gaydar.toujoursZero sont
+ * forcés à 0 %.
  */
 function score(userId) {
   if (config.gaydar.toujoursZero.includes(userId)) return 0;
@@ -39,8 +40,11 @@ function score(userId) {
   for (const caractere of `${userId}-${annee}-${mois}-${jour}`) {
     hash = (hash * 31 + caractere.codePointAt(0)) >>> 0;
   }
-  // 1001 valeurs équiprobables réparties de 99,000 à 100,000.
-  return 99 + (hash % 1001) / 1000;
+
+  // Élever un tirage uniforme à une puissance inférieure à 1 le pousse vers le
+  // haut : le bas de l'échelle reste atteignable, mais devient rare.
+  const uniforme = (hash % 1_000_001) / 1_000_000;
+  return 100 * uniforme ** (1 / config.gaydar.biais);
 }
 
 /** Trois décimales, virgule française. */

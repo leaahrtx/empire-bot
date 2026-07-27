@@ -38,6 +38,10 @@ export const config = {
   gaydar: {
     // Les images sont piochées au hasard dans ce dossier (png, jpg, gif, webp).
     dossierImages: 'assets/gaydar',
+    // Déséquilibre le tirage vers les scores élevés. 1 = répartition uniforme
+    // sur 0-100 ; plus le nombre est grand, plus les résultats se concentrent
+    // près de 100. À 4, environ 60 % des scans tombent entre 80 et 100 %.
+    biais: 4,
     // Membres dont le score est forcé à 0 %, quoi qu'il arrive.
     // Pour récupérer un identifiant : active Paramètres > Avancés > Mode
     // développeur, puis clic droit sur le membre > « Copier l'identifiant ».
