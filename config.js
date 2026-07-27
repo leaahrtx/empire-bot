@@ -13,6 +13,11 @@ export const config = {
     heureVerification: 9,
     // Crée un événement Discord pour chaque anniversaire connu.
     creerEvenements: true,
+    // Message d'annonce. Balises remplacées automatiquement :
+    //   {membre} → mention des personnes fêtées
+    //   {role}   → mention du rôle d'anniversaire
+    //   {age}    → « fête ses 25 ans », vide si l'année n'est pas connue
+    message: 'JOYEUX ANNIVERSAIRE à {membre} @everyone {role}',
     // true : n'importe qui peut renseigner l'anniversaire d'un autre membre.
     // false : réservé aux membres ayant la permission « Gérer le serveur ».
     ajoutParTous: true,
@@ -38,10 +43,16 @@ export const config = {
   gaydar: {
     // Les images sont piochées au hasard dans ce dossier (png, jpg, gif, webp).
     dossierImages: 'assets/gaydar',
-    // Déséquilibre le tirage vers les scores élevés. 1 = répartition uniforme
-    // sur 0-100 ; plus le nombre est grand, plus les résultats se concentrent
-    // près de 100. À 4, environ 60 % des scans tombent entre 80 et 100 %.
-    biais: 4,
+    // Tranches de score et leur poids relatif. Les poids n'ont pas besoin de
+    // totaliser 100 : ils sont ramenés à une probabilité automatiquement.
+    // Une tranche absente d'ici ne sortira jamais.
+    bandes: [
+      { min: 90, max: 100, poids: 80 },
+      { min: 70, max: 90, poids: 60 },
+      { min: 40, max: 60, poids: 40 },
+      { min: 20, max: 40, poids: 15 },
+      { min: 10, max: 20, poids: 5 },
+    ],
     // Membres dont le score est forcé à 0 %, quoi qu'il arrive.
     // Pour récupérer un identifiant : active Paramètres > Avancés > Mode
     // développeur, puis clic droit sur le membre > « Copier l'identifiant ».
