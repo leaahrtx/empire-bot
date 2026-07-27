@@ -4,3 +4,5 @@ bin/
 data/
 *.log
 .DS_Store
+assets/gaydar/*
+!assets/gaydar/.gitkeep
