@@ -50,7 +50,7 @@ function score(userId) {
   let seuil = choixBande * total;
   for (const bande of bandes) {
     seuil -= bande.poids;
-    if (seuil < 0) return bande.min + position * (bande.max - bande.min);
+    if (seuil < 0) return Math.round(bande.min + position * (bande.max - bande.min));
   }
   return bandes.at(-1).max; // filet de sécurité contre les arrondis flottants
 }
@@ -65,12 +65,9 @@ function hacher(chaine) {
   return hash / 2 ** 32;
 }
 
-/** Trois décimales, virgule française. */
+/** Pourcentage entier, sans décimale. */
 function formaterScore(valeur) {
-  return valeur.toLocaleString('fr-FR', {
-    minimumFractionDigits: 3,
-    maximumFractionDigits: 3,
-  });
+  return String(valeur);
 }
 
 function jauge(valeur) {
