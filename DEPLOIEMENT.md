@@ -117,3 +117,33 @@ fly ssh console -C "cat /app/data/anniversaires.json" > sauvegarde.json
 - **Le conteneur tourne en root**, ce qui est nécessaire pour écrire sur le
   volume monté par Fly. Chaque machine étant une microVM isolée, c'est sans
   conséquence ici.
+
+## YouTube et les IP de centres de données
+
+Depuis 2026, YouTube exige un jeton de preuve d'origine (PO Token) pour les
+requêtes venant d'un hébergeur. Sans lui, `/play` échoue avec
+« Sign in to confirm you're not a bot », alors que la même commande fonctionne
+depuis chez toi.
+
+L'image règle ça de deux façons :
+
+- **Moteur JavaScript.** yt-dlp n'active que `deno` par défaut, absent de
+  l'image. On lui passe `--js-runtimes node`, déjà présent, sans quoi
+  l'extraction est dégradée et la détection anti-robot bien plus fréquente.
+- **Fournisseur de jetons.** `bgutil-ytdlp-pot-provider` tourne dans le
+  conteneur sur `127.0.0.1:4416`, jamais exposé à l'extérieur. L'extension
+  yt-dlp l'interroge automatiquement.
+
+Les deux se lancent seuls via `scripts/demarrer.sh`. Pour vérifier que le
+fournisseur répond :
+
+```sh
+flyempire logs | grep -i "fournisseur\|bgutil"
+```
+
+Si `/play` échoue toujours, l'IP de la machine est probablement grillée. Un
+redéploiement dans une autre région en change souvent :
+
+```sh
+flyempire deploy --no-cache
+```
