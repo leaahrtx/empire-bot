@@ -25,7 +25,7 @@ depuis 2024, il reste 5 $ de crédits d'essai.
 Depuis le dossier du projet :
 
 ```sh
-fly apps create empire-bot
+fly apps create empire-bot-leaahrtx
 ```
 
 Si le nom est déjà pris, choisis-en un autre et corrige la ligne `app = ` dans
@@ -36,7 +36,7 @@ Si le nom est déjà pris, choisis-en un autre et corrige la ligne `app = ` dans
 Sans lui, `data/anniversaires.json` serait remis à zéro à chaque déploiement.
 
 ```sh
-fly volumes create empire_data --size 1 --region cdg
+fly volumes create empire_data --size 1 --region ams
 ```
 
 ## 4. Déclarer les secrets
@@ -83,7 +83,7 @@ fly status
 | --- | --- |
 | Publier une modification | `fly deploy` |
 | Voir les journaux en direct | `fly logs` |
-| Redémarrer | `fly apps restart empire-bot` |
+| Redémarrer | `fly apps restart empire-bot-leaahrtx` |
 | Ouvrir un shell dans la machine | `fly ssh console` |
 | Changer un secret | `fly secrets set CLE=valeur` |
 | Suivre la dépense | `fly dashboard` |
