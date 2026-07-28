@@ -43,16 +43,6 @@ export const config = {
   gaydar: {
     // Les images sont piochées au hasard dans ce dossier (png, jpg, gif, webp).
     dossierImages: 'assets/gaydar',
-    // Tranches de score et leur poids relatif. Les poids n'ont pas besoin de
-    // totaliser 100 : ils sont ramenés à une probabilité automatiquement.
-    // Une tranche absente d'ici ne sortira jamais.
-    bandes: [
-      { min: 90, max: 100, poids: 80 },
-      { min: 70, max: 90, poids: 60 },
-      { min: 40, max: 60, poids: 40 },
-      { min: 20, max: 40, poids: 15 },
-      { min: 10, max: 20, poids: 5 },
-    ],
     // Membres dont le score est forcé à 0 %, quoi qu'il arrive.
     // Pour récupérer un identifiant : active Paramètres > Avancés > Mode
     // développeur, puis clic droit sur le membre > « Copier l'identifiant ».

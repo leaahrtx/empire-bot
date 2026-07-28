@@ -25,23 +25,13 @@ async function imagesDisponibles() {
 }
 
 /**
- * Score tiré au hasard à chaque appel : deux scans du même membre donnent des
- * résultats différents. La tranche est choisie selon les poids de
- * config.gaydar.bandes, puis la valeur est répartie uniformément dedans.
- * Les membres listés dans config.gaydar.toujoursZero sont forcés à 0 %.
+ * Entier tiré au hasard entre 0 et 100, sans aucune pondération : chaque valeur
+ * a la même chance de sortir, et deux scans du même membre diffèrent.
+ * Seule exception, les membres de config.gaydar.toujoursZero, forcés à 0 %.
  */
 function score(userId) {
   if (config.gaydar.toujoursZero.includes(userId)) return 0;
-
-  const { bandes } = config.gaydar;
-  const total = bandes.reduce((somme, b) => somme + b.poids, 0);
-
-  let seuil = Math.random() * total;
-  for (const bande of bandes) {
-    seuil -= bande.poids;
-    if (seuil < 0) return Math.round(bande.min + Math.random() * (bande.max - bande.min));
-  }
-  return bandes.at(-1).max; // filet de sécurité contre les arrondis flottants
+  return Math.floor(Math.random() * 101);
 }
 
 /** Pourcentage entier, sans décimale. */
