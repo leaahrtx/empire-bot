@@ -28,7 +28,7 @@ export const config = {
     // valeur par défaut à la commande /meteo.
     villes: ['Caen', 'Paris', 'Toulouse', 'Saint-Brieuc', 'Pouxeux'],
     // Nom OU identifiant du salon où poster les annonces.
-    salonAnnonce: 'general',
+    salonAnnonce: '918973538378059786',
 
     // Météo du jour, tous les jours.
     annonceQuotidienne: true,
