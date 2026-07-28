@@ -19,6 +19,7 @@ quotidienne et hebdomadaire, et `/gaydar`.
 | `/anniversaire verifier` | Relance le passage quotidien (admin) |
 | `/meteo [ville] [jours]` | Prévisions sur 1 à 16 jours (7 par défaut) |
 | `/annonce <type>` | Publie tout de suite une annonce météo planifiée (admin) |
+| `/villeconin` | Météo de Villeconin pour la semaine 32 |
 | `/gaydar <membre>` | Scanne un membre et renvoie une image au hasard |
 | `/ping` | Test de vie |
 
